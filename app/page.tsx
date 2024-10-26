@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import FruitList from "./components/FruitList";
 import Jar, { JarData } from "./components/Jar";
 import Fruit from "./types/Fruit";
+
+import useFetchFruits from "./hooks/useFetchFruits";
 
 
 // Created the end point inside this project instead of the provided one because of the CORS problem.
@@ -14,25 +16,8 @@ const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT!;
 
 export default function Home() {
 
-  const [fruits, setFruits] = useState<Fruit[]>([]); // The fruit list
+  const { fruits, loading, error } = useFetchFruits(endPoint); // The fruit list
   const [jar, setJar] = useState<JarData>({}); // The jar data
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-
-  // Function to fetch data through the API
-  const fetchFruits = async () => {
-    try {
-      const response = await fetch(endPoint);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      setFruits(data); // Update state with fetched data
-    } catch (error) {
-      console.error("Error fetching fruits:", error);
-    } finally {
-      setLoading(false); // Set loading to false regardless of success or failure
-    }
-  };
 
   // Add a fruite into the jar
   const addFruitToJar = (fruit: Fruit) => {
@@ -88,17 +73,17 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchFruits();
-  }, []);
-
   return (
     <div className="flex h-screen p-4 bg-gray-100">
-      {loading ? ( // Conditional rendering based on loading state
+      {loading ? ( // Loading
         <div className="flex items-center justify-center w-full">
-          <p className="text-xl">Loading fruits...</p> {/* Loading message */}
+          <p className="text-xl">Loading fruits...</p>
         </div>
-      ) : (
+      ) : error ? ( // Error
+        <div className="flex items-center justify-center w-full">
+          <p className="text-xl text-red-500">Error fetching fruits: {error}</p>
+        </div>
+      ) : ( // Page
         <>
           {/* Left Section: Fruit List */}
           <FruitList fruits={fruits} onAddFruit={addFruitToJar} onAddGroup={addGroupToJar} />
