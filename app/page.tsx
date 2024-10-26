@@ -7,7 +7,7 @@ import Fruit from "./types/Fruit";
 
 
 // TODO Use environment variable for this.
-const endPoint = 'https://wcz3qr33kmjvzotdqt65efniv40kokon.lambda-url.us-east-2.on.aws/';
+//const endPoint = 'https://wcz3qr33kmjvzotdqt65efniv40kokon.lambda-url.us-east-2.on.aws/';
 
 
 export default function Home() {
@@ -17,8 +17,8 @@ export default function Home() {
   const [view, setView] = useState<"List" | "Table">("List");
   const [jar, setJar] = useState<JarData>({});
 
-  // Function to fetch data through the API
-  const fetchFruits = async () => {
+  // TODO Function to fetch data through the API
+  /*const fetchFruits = async () => {
     try {
       const response = await fetch(endPoint, { mode: 'no-cors' });
       if (!response.ok) {
@@ -29,7 +29,7 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching fruits:", error);
     }
-  };
+  };*/
 
   const groupFruits = (fruits: Fruit[], groupBy: string) => {
     if (groupBy === "None") return { None: fruits };

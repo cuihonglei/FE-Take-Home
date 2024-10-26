@@ -21,7 +21,7 @@ const Jar: React.FC<JarProps> = ({ data }) => {
   );
 
   // Prepare data for the pie chart
-  const pieChartData = Object.entries(data).map(([id, { name, count, calories }]) => ({
+  const pieChartData = Object.entries(data).map(([, { name, count, calories }]) => ({
     name,
     calories: count * calories,
   }));
