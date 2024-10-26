@@ -14,8 +14,9 @@ const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT!;
 
 export default function Home() {
 
-  const [fruits, setFruits] = useState<Fruit[]>([]);
-  const [jar, setJar] = useState<JarData>({});
+  const [fruits, setFruits] = useState<Fruit[]>([]); // The fruit list
+  const [jar, setJar] = useState<JarData>({}); // The jar data
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   // Function to fetch data through the API
   const fetchFruits = async () => {
@@ -28,6 +29,8 @@ export default function Home() {
       setFruits(data); // Update state with fetched data
     } catch (error) {
       console.error("Error fetching fruits:", error);
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or failure
     }
   };
 
@@ -66,11 +69,19 @@ export default function Home() {
 
   return (
     <div className="flex h-screen p-8 bg-gray-100">
-      {/* Left Section: Fruit List */}
-      <FruitList fruits={fruits} addFruit={addFruitToJar} addGroup={addGroupToJar} />
+      {loading ? ( // Conditional rendering based on loading state
+        <div className="flex items-center justify-center w-full">
+          <p className="text-xl">Loading fruits...</p> {/* Loading message */}
+        </div>
+      ) : (
+        <>
+          {/* Left Section: Fruit List */}
+          <FruitList fruits={fruits} addFruit={addFruitToJar} addGroup={addGroupToJar} />
 
-      {/* Right Section: Jar Contents */}
-      <Jar data={jar} />
+          {/* Right Section: Jar Contents */}
+          <Jar data={jar} />
+        </>
+      )}
     </div>
   );
 }
