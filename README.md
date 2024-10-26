@@ -2,6 +2,13 @@ This is a the take-home exercise for the Senior Front End Engineer position from
 
 ## Getting Started
 
+Change the .env.example to .env  
+Update  
+  NEXT_PUBLIC_API_ENDPOINT=  
+to  
+  NEXT_PUBLIC_API_ENDPOINT=http://localhost:3000/api/fruits  
+
+
 ```bash
 npm install
 npm run dev
