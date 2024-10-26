@@ -8,6 +8,7 @@ interface FruitListProps {
 }
 
 const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => {
+  
   const [groupBy, setGroupBy] = useState("None");
   const [view, setView] = useState("List");
 
@@ -39,7 +40,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => 
               onClick={() => addGroup(items)}
               className="text-sm text-blue-500 hover:underline"
             >
-              Add All to Jar
+              Add All
             </button>
           </div>
         )}
