@@ -68,7 +68,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex h-screen p-8 bg-gray-100">
+    <div className="flex h-screen p-4 bg-gray-100">
       {loading ? ( // Conditional rendering based on loading state
         <div className="flex items-center justify-center w-full">
           <p className="text-xl">Loading fruits...</p> {/* Loading message */}

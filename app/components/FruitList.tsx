@@ -98,7 +98,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => 
   };
 
   return (
-    <div className="w-1/2 h-full bg-white rounded-lg shadow-lg p-4 overflow-y-auto">
+    <div className="w-1/2 h-full bg-white p-4 overflow-y-auto">
       <h2 className="text-xl font-bold mb-4 text-center">Fruit List</h2>
 
       <div className="flex justify-between mb-4">

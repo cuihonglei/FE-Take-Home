@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
 export interface JarData {
   [id: string]: {
@@ -30,18 +30,13 @@ const Jar: React.FC<JarProps> = ({ data }) => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FF6384", "#36A2EB", "#FFCE56"];
 
   return (
-    <div>
-      <h2>Jar</h2>
-      <ul>
-        {Object.entries(data).map(([id, { name, count, calories }]) => (
-          <li key={id}>
-            {name}: {count} ({count * calories} calories)
-          </li>
-        ))}
-      </ul>
-      <h3>Total Calories: {totalCalories}</h3>
+    <div className="w-1/2 h-full bg-white p-4 overflow-y-auto">
 
-      <PieChart width={400} height={300} className="mt-6">
+      {/* Total Calories */}
+      <h3 className="text-lg font-semibold text-center">Total Calories: {totalCalories}</h3>
+
+      {/* The Pie Chart */}
+      <PieChart width={400} height={360} className="mx-auto">
         <Pie
           data={pieChartData}
           dataKey="calories"
@@ -57,8 +52,19 @@ const Jar: React.FC<JarProps> = ({ data }) => {
           ))}
         </Pie>
         <Tooltip />
-        <Legend />
       </PieChart>
+
+      {/* Added Fruits */}
+      <ul className="mt-4">
+        {Object.entries(data).map(([id, { name, count, calories }]) => (
+          <li key={id} className="flex justify-between border-b py-2">
+            <span className="text-gray-700">{name}</span>
+            <span className="text-gray-500">
+              {count} ({count * calories} calories)
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
