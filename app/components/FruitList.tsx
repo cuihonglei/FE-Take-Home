@@ -3,11 +3,11 @@ import Fruit from "../types/Fruit";
 
 interface FruitListProps {
   fruits: Fruit[];
-  addFruit: (fruit: Fruit) => void;
-  addGroup: (group: Fruit[]) => void;
+  onAddFruit: (fruit: Fruit) => void;
+  onAddGroup: (group: Fruit[]) => void;
 }
 
-const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => {
+const FruitList: React.FC<FruitListProps> = ({ fruits, onAddFruit, onAddGroup }) => {
   
   const [groupBy, setGroupBy] = useState("None");
   const [view, setView] = useState("List");
@@ -37,7 +37,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => 
           <div className="flex items-center justify-between">
             <h3 className="p-2 font-semibold bg-gray-200 rounded-md">{group}</h3>
             <button
-              onClick={() => addGroup(items)}
+              onClick={() => onAddGroup(items)}
               className="text-sm text-blue-500 hover:underline"
             >
               Add All
@@ -52,7 +52,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => 
                   {fruit.name} ({fruit.nutritions.calories} cal)
                 </div>
                 <button
-                  onClick={() => addFruit(fruit)}
+                  onClick={() => onAddFruit(fruit)}
                   className="text-sm text-blue-500 hover:underline"
                 >
                   Add
@@ -82,7 +82,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, addFruit, addGroup }) => 
                   <td className="p-2 border-b">{fruit.nutritions.calories}</td>
                   <td className="p-2 border-b">
                     <button
-                      onClick={() => addFruit(fruit)}
+                      onClick={() => onAddFruit(fruit)}
                       className="text-sm text-blue-500 hover:underline"
                     >
                       Add

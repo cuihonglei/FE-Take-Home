@@ -34,6 +34,7 @@ export default function Home() {
     }
   };
 
+  // Add a fruite into the jar
   const addFruitToJar = (fruit: Fruit) => {
     setJar((prevJar) => ({
       ...prevJar,
@@ -45,6 +46,22 @@ export default function Home() {
     }));
   };
 
+  // Remove the fruit from the jar
+  const removeFruitFromJar = (id: string) => {
+    setJar((prevJar) => {
+      // Check if the fruit exists in the jar
+      if (!prevJar[id]) {
+        return prevJar; // Return the previous state if the fruit doesn't exist
+      }
+
+      // Clone the jar data and remove the specified fruit
+      const updatedJar = { ...prevJar };
+      delete updatedJar[id];
+      return updatedJar;
+    });
+  };
+
+  // Add a group of fruits into the jar
   const addGroupToJar = (group: Fruit[]) => {
     const newJar = { ...jar };
     group.forEach((fruit) => {
@@ -63,6 +80,14 @@ export default function Home() {
     setJar(newJar);
   };
 
+  // Clear the jar
+  const clearJar = () => {
+    const userConfirmed = window.confirm("Are you sure you want to clear the jar? This action cannot be undone.");
+    if (userConfirmed) {
+      setJar({});
+    }
+  };
+
   useEffect(() => {
     fetchFruits();
   }, []);
@@ -76,10 +101,10 @@ export default function Home() {
       ) : (
         <>
           {/* Left Section: Fruit List */}
-          <FruitList fruits={fruits} addFruit={addFruitToJar} addGroup={addGroupToJar} />
+          <FruitList fruits={fruits} onAddFruit={addFruitToJar} onAddGroup={addGroupToJar} />
 
           {/* Right Section: Jar Contents */}
-          <Jar data={jar} />
+          <Jar data={jar} onRemoveFruit={removeFruitFromJar} onClearJar={clearJar} />
         </>
       )}
     </div>
