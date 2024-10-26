@@ -33,6 +33,8 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, onAddFruit, onAddGroup })
   const renderFruits = () => {
     return Object.entries(groupedFruits).map(([group, items]) => (
       <div key={group} className="mb-4">
+        
+        {/* Group Name */}
         {groupBy !== "None" && (
           <div className="flex items-center justify-between">
             <h3 className="p-2 font-semibold bg-gray-200 rounded-md">{group}</h3>
@@ -44,7 +46,9 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, onAddFruit, onAddGroup })
             </button>
           </div>
         )}
-        {view === "List" ? (
+
+        {/* Fruit List */}
+        {view === "List" ? ( // List View
           <ul className="ml-4 mt-2">
             {items.map((fruit) => (
               <li key={fruit.id} className="flex justify-between items-center">
@@ -60,7 +64,7 @@ const FruitList: React.FC<FruitListProps> = ({ fruits, onAddFruit, onAddGroup })
               </li>
             ))}
           </ul>
-        ) : (
+        ) : ( // Table View
           <table className="w-full mt-2">
             <thead>
               <tr>
